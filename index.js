@@ -5,7 +5,7 @@ connectToMongo();
 
 const app = express();
 
-const port = 5005;
+const port = process.env.PORT || 5005;
 
 // to have access to req object
 app.use(express.json());
