@@ -53,8 +53,6 @@ module.exports.add = async (req, res) => {
       { $set: { domain: req.body.domain, year: req.body.year } }
     );
 
-    user = User.findById(req.id);
-
     console.log(list);
 
     // list.push(req.id);
