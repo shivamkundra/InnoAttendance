@@ -49,13 +49,14 @@ module.exports.add = async (req, res) => {
       Domain.updateOne({ domainName }, { $set: { firstYear: list } });
     }
     console.log(User);
-    user = await User.updateOne(
+    await User.updateOne(
       { _id: req.id },
       { $set: { domain: req.body.domain, year: req.body.year } }
     );
 
     console.log(list);
 
+    user = User.findById(req.id);
     // list.push(req.id);
 
     return res.json({
