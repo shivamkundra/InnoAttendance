@@ -32,7 +32,7 @@ const UserSchema = new Schema({
     default: "",
   },
   year: {
-    type: Number,
+    type: String,
     default: 0,
   },
 });
