@@ -7,7 +7,7 @@ module.exports.add = async (req, res) => {
     console.log(req.body);
     console.log(req.id);
 
-    const user = await User.findOne({ _id: req.id });
+    let user = await User.findOne({ _id: req.id });
 
     console.log(user);
     if (user.domain !== "") {
@@ -56,7 +56,7 @@ module.exports.add = async (req, res) => {
 
     console.log(list);
 
-    user = await User.findById(req.id);
+    user = await User.findOne({ _id: req.id });
     // list.push(req.id);
 
     return res.json({
