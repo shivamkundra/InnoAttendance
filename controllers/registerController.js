@@ -48,10 +48,12 @@ module.exports.add = async (req, res) => {
       db.Domain.update({ domainName }, { $set: { firstYear: list } });
     }
 
-    user = await User.updateOne(
+    await User.updateOne(
       { _id: req.id },
       { $set: { domain: req.body.domain, year: req.body.year } }
     );
+
+    user = User.findById(req.id);
 
     console.log(list);
 
