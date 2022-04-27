@@ -7,8 +7,9 @@ module.exports.add = async (req, res) => {
     console.log(req.body);
     console.log(req.id);
 
-    const user = await User.findById(req.id);
-    console.log(user.domain);
+    const user = await User.findOne({ _id: req.id });
+
+    console.log(user);
     if (user.domain !== "") {
       return res.json({
         message: "already registered",
@@ -37,17 +38,17 @@ module.exports.add = async (req, res) => {
     } else if (year == "secondYear") {
       list = DomainInfo.secondYear;
       list.push(req.id);
-      db.Domain.update({ domainName }, { $set: { firstYear: list } });
+      Domain.updateOne({ domainName }, { $set: { firstYear: list } });
     } else if (year == "thirdYear") {
       list = DomainInfo.thirdYear;
       list.push(req.id);
-      db.Domain.update({ domainName }, { $set: { firstYear: list } });
+      Domain.updateOne({ domainName }, { $set: { firstYear: list } });
     } else if (year == "fourthYear") {
       list = DomainInfo.fourthYear;
       list.push(req.id);
-      db.Domain.update({ domainName }, { $set: { firstYear: list } });
+      Domain.updateOne({ domainName }, { $set: { firstYear: list } });
     }
-
+    console.log(User);
     await User.updateOne(
       { _id: req.id },
       { $set: { domain: req.body.domain, year: req.body.year } }
