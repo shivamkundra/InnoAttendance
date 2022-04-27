@@ -56,7 +56,7 @@ module.exports.add = async (req, res) => {
 
     console.log(list);
 
-    // user = User.findById(req.id);
+    user = await User.findById(req.id);
     // list.push(req.id);
 
     return res.json({
