@@ -3,10 +3,10 @@ const User = require("../models/User");
 
 module.exports.list = async (req, res) => {
   try {
-    console.log(req.params);
+    console.log(req.body);
 
-    const domainName = "" + req.params.domain;
-    const year = req.params.year;
+    const domainName = req.body.domain;
+    const year = req.body.year;
     console.log(domainName);
     console.log(year);
     let DomainInfo = await Domain.findOne({ domainName });

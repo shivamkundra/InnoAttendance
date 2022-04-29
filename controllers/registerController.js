@@ -38,17 +38,17 @@ module.exports.add = async (req, res) => {
     } else if (year == "secondYear") {
       list = DomainInfo.secondYear;
       list.push(req.id);
-      Domain.updateOne({ domainName }, { $set: { firstYear: list } });
+      await Domain.updateOne({ domainName }, { $set: { secondYear: list } });
     } else if (year == "thirdYear") {
       list = DomainInfo.thirdYear;
       list.push(req.id);
-      Domain.updateOne({ domainName }, { $set: { firstYear: list } });
+      await Domain.updateOne({ domainName }, { $set: { thirdYear: list } });
     } else if (year == "fourthYear") {
       list = DomainInfo.fourthYear;
       list.push(req.id);
-      Domain.updateOne({ domainName }, { $set: { firstYear: list } });
+      await Domain.updateOne({ domainName }, { $set: { fourthYear: list } });
     }
-    console.log(User);
+
     await User.updateOne(
       { _id: req.id },
       { $set: { domain: req.body.domain, year: req.body.year } }
@@ -57,6 +57,8 @@ module.exports.add = async (req, res) => {
     console.log(list);
 
     user = await User.findOne({ _id: req.id });
+    console.log(user);
+    console.log(DomainInfo);
     // list.push(req.id);
 
     return res.json({

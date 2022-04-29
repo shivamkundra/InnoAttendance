@@ -23,6 +23,10 @@ const UserSchema = new Schema({
     type: Number,
     default: 0,
   },
+  classesHeld: {
+    type: Number,
+    default: 0,
+  },
   attendanceRecord: {
     type: Array,
     default: [],
