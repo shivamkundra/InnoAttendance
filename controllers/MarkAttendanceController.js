@@ -42,8 +42,18 @@ module.exports.list = async (req, res) => {
 
     console.log(list);
 
+    let studentObjList = [];
+
+    for (const element of list) {
+      console.log(element);
+      const studentObj = await User.findById({ _id: element });
+      console.log(studentObj);
+      studentObjList.push(studentObj);
+    }
+    console.log(studentObjList);
+
     return res.json({
-      students: list,
+      students: studentObjList,
       message: "hello",
     });
   } catch (err) {
