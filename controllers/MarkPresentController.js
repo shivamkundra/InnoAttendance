@@ -5,6 +5,8 @@ module.exports.present = async (req, res) => {
   try {
     console.log(req.body);
 
+    const teacher = await User.findById({ _id: req.id });
+
     const students = req.body.list;
     const student = await User.findById({ _id: students[0] });
     const domainName = student.domain;
@@ -37,18 +39,38 @@ module.exports.present = async (req, res) => {
     console.log(list);
 
     list.forEach(async (element) => {
+      //this increase total classes helo of all students
       //inc total
       let student = await User.findOne({ _id: element });
       let ttn = student.classesHeld; //total till now
       ttn++;
       await User.updateOne({ _id: element }, { $set: { classesHeld: ttn } });
     });
-
+    console.log("teacher" + teacher);
+    const record = {
+      date: Date.now,
+      markedBy: {
+        name: teacher.name,
+        domain: teacher.domain,
+        year: teacher.year,
+      },
+    };
     students.forEach(async (element) => {
+      //this increases attendance of all students present
       let student = await User.findOne({ _id: element });
       let ptn = student.attendance; //present till now
       ptn++;
-      await User.updateOne({ _id: element }, { $set: { attendance: ptn } });
+      let attendanceRecord = student.attendanceRecord;
+      attendanceRecord.push(record);
+      await User.updateOne(
+        { _id: element },
+        {
+          $set: {
+            attendance: ptn,
+            attendanceRecord,
+          },
+        }
+      );
     });
 
     return res.json({
